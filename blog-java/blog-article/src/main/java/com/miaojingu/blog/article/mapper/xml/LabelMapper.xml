@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miaojingu.blog.article.mapper.LabelMapper">
+
+    <!--    这里不需要写com.miaojingu.blog.entities.Label，因为在application.yml文件中配置了type-aliases-package -->
+    <select id="queryPage" resultType="Label">
+        select m1.id,m1.category_id,m1.name,m1.create_date,m1.update_date,m2.name category_name from mjg_label m1 join mjg_category m2 on m1.category_id = m2.id where 1=1
+        <if test="req.name !=null and req.name != ''">
+            and m1.name like concat("%",#{req.name},"%")
+        </if>
+        <if test="req.categoryId !=null and req.categoryId != ''">
+            and m1.category_id = #{req.categoryId}
+        </if>
+        order by m1.update_date desc
+    </select>
+</mapper>

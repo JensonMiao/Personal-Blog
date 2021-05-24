@@ -19,7 +19,7 @@ public final class Result implements Serializable {
 
     private static final Logger logger = LoggerFactory.getLogger(Result.class);
 
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
 
     /**
      * 响应业务状态码

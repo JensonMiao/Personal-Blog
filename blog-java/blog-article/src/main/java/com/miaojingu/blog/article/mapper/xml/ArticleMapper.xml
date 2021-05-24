@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miaojingu.blog.article.mapper.ArticleMapper">
+
+
+    <resultMap id="ArticleAndLabelMap" type="Article" >
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="nick_name" property="nickName" />
+        <result column="user_image" property="userImage" />
+        <result column="title" property="title" />
+        <result column="summary" property="summary" />
+        <result column="image_url" property="imageUrl" />
+        <result column="md_content" property="mdContent" />
+        <result column="html_content" property="htmlContent" />
+        <result column="view_count" property="viewCount" />
+        <result column="thumhup" property="thumhup" />
+        <result column="status" property="status" />
+        <result column="ispublic" property="ispublic" />
+        <result column="create_date" property="createDate" />
+        <result column="update_date" property="updateDate" />
+        <!-- 封装标签id集合 -->
+        <collection property="labelIds" javaType="list" ofType="string">
+            <id column="label_id" property="id"></id>
+        </collection>
+
+        <!-- 封装标签对象集合 -->
+        <collection property="labelList" javaType="list" ofType="Label">
+            <id column="label_id" property="id"/>
+            <result column="label_name" property="name"></result>
+        </collection>
+    </resultMap>
+
+
+
+    <select id="findArticleAndLabelById" resultMap="ArticleAndLabelMap">
+        select m1.*,m3.id label_id, m3.name label_name from mjg_article m1 left join mjg_article_label m2 on m1.id = m2.article_id left join mjg_label m3 on m2.label_id  = m3.id where m1.id=#{id}
+    </select>
+</mapper>
